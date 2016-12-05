@@ -1,14 +1,13 @@
 package com.company;
-import Domain.Client;
-import Domain.ClientDataModel;
-import Domain.Movie;
-import Domain.MovieDataModel;
+import Domain.*;
 import GUI.ClientViewController;
 import GUI.MovieGuiController;
 import GUI.MovieView;
+import GUI.RentalViewController;
 import Repository.AbstractRepository.CrudRepository;
 import Service.ClientService;
 import Service.MovieService;
+import Service.RentalService;
 import UI.UI;
 import Controller.Controller;
 import Repository.*;
@@ -19,6 +18,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -34,6 +34,7 @@ import java.util.List;
 public class Main extends Application
 {
     BorderPane clLayout;
+    BorderPane rentLayout;
     Stage primaryStage;
     MovieRepository movRepo;
     ClientRepository clRepo;
@@ -41,6 +42,10 @@ public class Main extends Application
     Controller ctrl;
     ClientService clService;
     MovieService movieService;
+    RentalService rentService;
+    RentalViewController rentViewCtrl;
+    ClientViewController clViewCtrl;
+    MovieGuiController mvCtrl;
 
     public static void main(String args[])
     {
@@ -71,6 +76,35 @@ public class Main extends Application
         launch(args);
     }
 
+    private void initRentalView()
+    {
+        try
+        {
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(Main.class.getResource("/GUI/RentalView.fxml"));
+            rentLayout = (BorderPane)loader.load();
+
+            rentViewCtrl = loader.getController();
+            rentViewCtrl.setClientViewController(clViewCtrl);
+            rentViewCtrl.setMovieViewController(mvCtrl);
+            RentalDataModel model = new RentalDataModel(rentRepo);
+            rentViewCtrl.setModel(model);
+            model.setController(rentViewCtrl);
+            rentViewCtrl.setService(rentService);
+            rentService.addObserver(rentViewCtrl);
+
+            Scene scene = new Scene(rentLayout);
+            primaryStage.setScene(scene);
+            this.primaryStage.setTitle("Rentals manager");
+            primaryStage.show();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+
     private void initClientView()
     {
         try
@@ -80,7 +114,7 @@ public class Main extends Application
             loader.setLocation(Main.class.getResource("/GUI/ClientView.fxml"));
             clLayout = (BorderPane)loader.load();
 
-            ClientViewController clViewCtrl = loader.getController();
+            clViewCtrl = loader.getController();
             ClientDataModel clModel = new ClientDataModel(clRepo);
             clViewCtrl.setModel(clModel);
             clModel.setController(clViewCtrl);
@@ -88,9 +122,10 @@ public class Main extends Application
             clService.addObserver(clViewCtrl);
 
             Scene scene = new Scene(clLayout);
-            primaryStage.setScene(scene);
-            this.primaryStage.setTitle("Clients manager");
-            primaryStage.show();
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Clients manager");
+            stage.show();
         }
         catch (IOException ex)
         {
@@ -100,7 +135,7 @@ public class Main extends Application
 
     private void initMovieView()
     {
-        MovieGuiController mvCtrl = new MovieGuiController();
+        mvCtrl = new MovieGuiController();
         MovieDataModel model = new MovieDataModel(movRepo);
         mvCtrl.setModel(model);
         model.setController(mvCtrl);
@@ -114,9 +149,10 @@ public class Main extends Application
         Parent parent = movView.getView();
         Scene scene = new Scene(parent, 500, 500);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Movies manager");
-        primaryStage.show();
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Movies manager");
+        stage.show();
     }
 
     @Override
@@ -129,8 +165,12 @@ public class Main extends Application
         ctrl = new Controller(movRepo, clRepo, rentRepo);
         clService = new ClientService(clRepo);
         movieService = new MovieService(movRepo);
+        rentService = new RentalService(rentRepo, movRepo, clRepo);
 
         this.primaryStage = primaryStage;
+
         initMovieView();
+        initClientView();
+        initRentalView();
     }
 }

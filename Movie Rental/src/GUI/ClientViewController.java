@@ -26,6 +26,11 @@ import java.util.List;
  */
 public class ClientViewController implements Observer<Client>
 {
+    public TableView<Client> getClientsTableView()
+    {
+        return clientsTableView;
+    }
+
     @FXML
     private TableView<Client> clientsTableView;
     @FXML

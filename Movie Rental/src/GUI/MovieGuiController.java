@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import Controller.Controller;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableView;
 import utils.Observable;
 import utils.Observer;
 
@@ -60,6 +61,11 @@ public class MovieGuiController implements Observer<Movie>
     public MovieDataModel getDataModel()
     {
         return model;
+    }
+
+    public TableView<Movie> getTableView()
+    {
+        return view.tableViewMovie;
     }
 
     private void showErrorMessage()

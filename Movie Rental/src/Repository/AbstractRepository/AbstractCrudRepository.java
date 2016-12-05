@@ -15,6 +15,7 @@ public abstract class AbstractCrudRepository<E extends IDInterface<ID>, ID> impl
 {
     protected List<E> items = new ArrayList<E>();
     protected Validator<E> validator;
+    protected Integer maxId = 0;
 
     @Override
     public Integer size()
@@ -25,7 +26,8 @@ public abstract class AbstractCrudRepository<E extends IDInterface<ID>, ID> impl
     @Override
     public void store(E el) throws MyDomainException
     {
-        validator.validate(el);
+        if (validator != null)
+           validator.validate(el);
         items.add(el);
     }
 
@@ -66,7 +68,8 @@ public abstract class AbstractCrudRepository<E extends IDInterface<ID>, ID> impl
     @Override
     public void validate(E el) throws MyDomainException
     {
-        validator.validate(el);
+        if (validator != null)
+            validator.validate(el);
     }
 
     @Override

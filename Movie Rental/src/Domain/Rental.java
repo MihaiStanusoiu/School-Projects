@@ -41,6 +41,16 @@ public class Rental implements IDInterface<Integer>
         this._cl = _cl;
     }
 
+    public Integer getMovieId()
+    {
+        return _mov.getId();
+    }
+
+    public Integer getClientId()
+    {
+        return _cl.getId();
+    }
+
     @Override
     public String toString()
     {

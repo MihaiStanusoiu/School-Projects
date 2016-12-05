@@ -16,6 +16,8 @@ public abstract class Repository<E extends IDInterface<ID>, ID> extends Abstract
         setValidator(val);
     }
 
+    public Repository() {}
+
     @Override
     public void loadData() throws FileNotFoundException
     {
