@@ -28,6 +28,8 @@ public class MovieRepository extends Repository<Movie, Integer>
     @Override
     public Integer getNextId()
     {
+        if (items.size() == 0)
+            return 1;
         return items.get(items.size() - 1).getId() + 1;
     }
 

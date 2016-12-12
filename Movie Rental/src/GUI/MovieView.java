@@ -61,6 +61,9 @@ public class MovieView
         background.setLeft(createLeftPane());
         background.setCenter(createCenterPane());
         background.setBottom(createBottomPane());
+        background.setPrefSize(960, 520);
+        background.setMaxHeight(background.getPrefHeight());
+        background.setMaxWidth(background.getPrefWidth());
     }
 
     private Pane createLeftPane()

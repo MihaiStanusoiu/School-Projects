@@ -16,6 +16,7 @@ import utils.Observable;
 import utils.Observer;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mihai on 12/5/2016.
@@ -112,6 +113,8 @@ public class RentalViewController implements Observer<Rental>
         idColumn.setCellValueFactory(new PropertyValueFactory<Rental, Integer>("id"));
         movIdColumn.setCellValueFactory(new PropertyValueFactory<Rental, Integer>("MovieId"));
         clIdColumn.setCellValueFactory(new PropertyValueFactory<Rental, Integer>("ClientId"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Rental, String>("ClientName"));
+        titleColumn.setCellValueFactory(new PropertyValueFactory<Rental, String>("MovieTitle"));
 
         rentalsTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rental>()
         {
@@ -129,6 +132,8 @@ public class RentalViewController implements Observer<Rental>
                         TableView tbView = clViewCtrl.getClientsTableView();
                         tbView.requestFocus();
                         Client index = newValue.getCl();
+                        Client cl = clViewCtrl.getDataModel().getData().filtered(c -> c.getId() == index.getId()).get(0);
+                        nameTextBox.setText(cl.getName());
                         tbView.getSelectionModel().select(index);
                         tbView.getFocusModel().focus(index.getId());
                     }
@@ -138,6 +143,8 @@ public class RentalViewController implements Observer<Rental>
                         TableView tbView = movViewCtrl.getTableView();
                         tbView.requestFocus();
                         Movie index = newValue.getMov();
+                        Movie cl = movViewCtrl.getDataModel().getData().filtered(c -> c.getId() == index.getId()).get(0);
+                        titleTextBox.setText(cl.getTitle());
                         tbView.getSelectionModel().select(index);
                         tbView.getFocusModel().focus(index.getId());
                     }

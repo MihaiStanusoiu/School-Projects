@@ -36,13 +36,18 @@ public class Main extends Application
     BorderPane clLayout;
     BorderPane rentLayout;
     Stage primaryStage;
+    Stage movieStage;
+    Stage clientStage;
+
     MovieRepository movRepo;
     ClientRepository clRepo;
     RentRepository rentRepo;
     Controller ctrl;
+
     ClientService clService;
     MovieService movieService;
     RentalService rentService;
+
     RentalViewController rentViewCtrl;
     ClientViewController clViewCtrl;
     MovieGuiController mvCtrl;
@@ -95,8 +100,17 @@ public class Main extends Application
             rentService.addObserver(rentViewCtrl);
 
             Scene scene = new Scene(rentLayout);
+            primaryStage.setX(0);
+            primaryStage.setY(0);
+            primaryStage.setHeight(1040);
+            primaryStage.setWidth(960);
             primaryStage.setScene(scene);
             this.primaryStage.setTitle("Rentals manager");
+            primaryStage.setOnCloseRequest(event ->
+            {
+                movieStage.close();
+                clientStage.close();
+            });
             primaryStage.show();
         }
         catch (IOException ex)
@@ -122,10 +136,18 @@ public class Main extends Application
             clService.addObserver(clViewCtrl);
 
             Scene scene = new Scene(clLayout);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Clients manager");
-            stage.show();
+            clientStage = new Stage();
+            clientStage.setX(960);
+            clientStage.setY(520);
+            clientStage.setWidth(960);
+            clientStage.setHeight(520);
+            clientStage.setScene(scene);
+            clientStage.setTitle("Clients manager");
+            clientStage.setOnCloseRequest(event ->
+            {
+                event.consume();
+            });
+            clientStage.show();
         }
         catch (IOException ex)
         {
@@ -149,16 +171,24 @@ public class Main extends Application
         Parent parent = movView.getView();
         Scene scene = new Scene(parent, 500, 500);
 
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Movies manager");
-        stage.show();
+        movieStage = new Stage();
+        movieStage.setX(960);
+        movieStage.setY(0);
+        movieStage.setWidth(960);
+        movieStage.setHeight(520);
+        movieStage.setScene(scene);
+        movieStage.setTitle("Movies manager");
+        movieStage.setOnCloseRequest(event ->
+        {
+            event.consume();
+        });
+        movieStage.show();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        movRepo = new MovieRepoFromFile(new MovieValidator(), "src/movies.txt");
+        movRepo = new MovieRepoFromXml(new MovieValidator(), "src/moviesxml.xml");
         clRepo = new ClientRepoSerializable(new ClientValidator(), "src/clients.txt");
         rentRepo = new RentRepository(new RentalValidator());
 

@@ -12,17 +12,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RentalViewController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RentalViewController">
     <left>
-        <HBox prefHeight="582.0" prefWidth="577.0" BorderPane.alignment="CENTER">
+        <HBox maxHeight="-Infinity" prefHeight="800.0" prefWidth="577.0" BorderPane.alignment="TOP_LEFT">
             <children>
                 <TableView fx:id="rentalsTableView" prefHeight="582.0" prefWidth="594.0">
                     <columns>
-                        <TableColumn fx:id="idColumn" prefWidth="41.0" text="ID" />
-                        <TableColumn fx:id="movIdColumn" prefWidth="62.0" text="Movie ID" />
-                        <TableColumn fx:id="titleColumn" prefWidth="208.0" text="Movie Title" />
-                  <TableColumn fx:id="clIdColumn" prefWidth="53.0" text="Client ID" />
-                  <TableColumn fx:id="nameColumn" prefWidth="212.0" text="Client Name" />
+                        <TableColumn fx:id="idColumn" prefWidth="45.0" text="ID" />
+                        <TableColumn fx:id="movIdColumn" prefWidth="69.0" text="Movie ID" />
+                        <TableColumn fx:id="titleColumn" prefWidth="197.0" text="Movie Title" />
+                  <TableColumn fx:id="clIdColumn" prefWidth="68.0" text="Client ID" />
+                  <TableColumn fx:id="nameColumn" prefWidth="197.0" text="Client Name" />
                     </columns>
                 </TableView>
             </children>
@@ -51,7 +51,7 @@
             <Label text="Client ID:" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label text="Client Name:" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <TextField fx:id="clIdTextBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="clNameTextBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="nameTextBox" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             </children>
         </GridPane>
     </right>

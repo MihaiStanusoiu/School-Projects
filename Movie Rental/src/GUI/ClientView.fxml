@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ClientViewController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ClientViewController">
    <left>
       <HBox prefHeight="400.0" prefWidth="348.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +28,7 @@
       </HBox>
    </left>
    <right>
-      <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="231.0" BorderPane.alignment="TOP_LEFT">
+      <GridPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="259.0" prefWidth="620.0" BorderPane.alignment="TOP_LEFT">
         <columnConstraints>
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="33.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="195.0" />
